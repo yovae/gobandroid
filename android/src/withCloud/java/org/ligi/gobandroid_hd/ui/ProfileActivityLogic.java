@@ -1,14 +1,51 @@
 package org.ligi.gobandroid_hd.ui;
 
-import android.os.Bundle;
+import android.app.AlertDialog;
+import android.content.IntentSender;
+import android.support.annotation.NonNull;
 
-import org.ligi.gobandroid_hd.ui.application.GobandroidFragmentActivity;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
 
-public class PlusAwareProfileActivity extends GobandroidFragmentActivity {
+import org.ligi.gobandroid_hd.R;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class ProfileActivityLogic implements GoogleApiClient.OnConnectionFailedListener {
+
+    BaseProfileActivity base;
+    GoogleApiClient mGoogleApiClient;
+
+    @Bind(R.id.sign_in_button)
+    SignInButton signInButton;
+
+    @OnClick(R.id.sign_in_button)
+    void onSignInClick() {
+        new AlertDialog.Builder(base).setMessage(" " + mGoogleApiClient.isConnected()).show();
+    }
+
+    public void onResume(BaseProfileActivity base, GoogleApiClient mGoogleApiClient) {
+        this.base = base;
+        this.mGoogleApiClient = mGoogleApiClient;
+
+        ButterKnife.bind(this, base);
+
+        mGoogleApiClient.registerConnectionFailedListener(this);
+        mGoogleApiClient.disconnect();
+        mGoogleApiClient.connect();
+
+    }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        try {
+            connectionResult.startResolutionForResult(base, 1001);
+        } catch (IntentSender.SendIntentException e) {
+            e.printStackTrace();
+        }
     }
 
 

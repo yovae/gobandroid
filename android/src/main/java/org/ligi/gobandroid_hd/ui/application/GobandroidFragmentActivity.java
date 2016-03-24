@@ -15,7 +15,6 @@ import java.lang.reflect.Field;
 import javax.inject.Inject;
 import org.ligi.gobandroid_hd.App;
 import org.ligi.gobandroid_hd.InteractionScope;
-import org.ligi.gobandroid_hd.PlayServicesIntegration;
 import org.ligi.gobandroid_hd.R;
 import org.ligi.gobandroid_hd.logic.GoGame;
 import org.ligi.gobandroid_hd.model.GameProvider;
@@ -34,8 +33,6 @@ public class GobandroidFragmentActivity extends AppCompatActivity {
 
     private ActionBarDrawerToggle drawerToggle;
     private DrawerLayout drawerLayout;
-
-    private PlayServicesIntegration playServicesIntegration;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
