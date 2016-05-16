@@ -3,23 +3,20 @@ package org.ligi.gobandroid_hd.ui;
 import android.app.AlertDialog;
 import android.content.IntentSender;
 import android.support.annotation.NonNull;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
-
 import org.ligi.gobandroid_hd.R;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class ProfileActivityLogic implements GoogleApiClient.OnConnectionFailedListener {
 
     BaseProfileActivity base;
     GoogleApiClient mGoogleApiClient;
 
-    @Bind(R.id.sign_in_button)
+    @BindView(R.id.sign_in_button)
     SignInButton signInButton;
 
     @OnClick(R.id.sign_in_button)
