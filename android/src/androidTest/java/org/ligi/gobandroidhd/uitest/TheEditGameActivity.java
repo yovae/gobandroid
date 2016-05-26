@@ -1,14 +1,12 @@
 package org.ligi.gobandroidhd.uitest;
 
 import android.test.suitebuilder.annotation.MediumTest;
-
 import com.squareup.spoon.Spoon;
-
+import javax.inject.Inject;
 import org.ligi.gobandroid_hd.App;
 import org.ligi.gobandroid_hd.R;
 import org.ligi.gobandroid_hd.etc.AppModule;
 import org.ligi.gobandroid_hd.logic.Cell;
-import org.ligi.gobandroid_hd.logic.CellFactory;
 import org.ligi.gobandroid_hd.logic.CellImpl;
 import org.ligi.gobandroid_hd.logic.GoGame;
 import org.ligi.gobandroid_hd.logic.markers.SquareMarker;
@@ -17,9 +15,7 @@ import org.ligi.gobandroid_hd.logic.markers.TriangleMarker;
 import org.ligi.gobandroid_hd.model.GameProvider;
 import org.ligi.gobandroid_hd.ui.editing.EditGameActivity;
 import org.ligi.gobandroidhd.base.BaseIntegration;
-
-import javax.inject.Inject;
-
+import org.ligi.gobandroidhd.helper.CellFactory;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -42,7 +38,9 @@ public class TheEditGameActivity extends BaseIntegration<EditGameActivity> {
     public void setUp() throws Exception {
         super.setUp();
 
-        final TestComponent testComponent = DaggerTestComponent.builder().appModule(new AppModule((App) getInstrumentation().getTargetContext().getApplicationContext())).build();
+        final TestComponent testComponent = DaggerTestComponent.builder()
+                                                               .appModule(new AppModule((App) getInstrumentation().getTargetContext().getApplicationContext()))
+                                                               .build();
         App.setComponent(testComponent);
         testComponent.inject(this);
     }
